@@ -66,6 +66,11 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
 
         [_collectionView addGestureRecognizer:_panPressGestureRecognizer];
         
+        
+//        _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+//        _tapGestureRecognizer.delegate = self;
+//        [_collectionView addGestureRecognizer:_tapGestureRecognizer];
+        
         for (UIGestureRecognizer *gestureRecognizer in _collectionView.gestureRecognizers) {
             if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
                 [gestureRecognizer requireGestureRecognizerToFail:_longPressGestureRecognizer];
@@ -131,6 +136,7 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
     }
 }
 
+#pragma mark UIGestureRecognizerDelegate delegate callback
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     if([gestureRecognizer isEqual:_panPressGestureRecognizer]) {
@@ -318,6 +324,16 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
         self.layoutHelper.hideIndexPath = indexPath;
         self.layoutHelper.toIndexPath = indexPath;
     } completion:nil];
+}
+
+
+-(void) handleTapGesture:(UITapGestureRecognizer *)sender {
+    
+    CGPoint touchedAtPoint = [sender locationInView:self.collectionView];
+//    NSIndexPath *indexPath = [self indexPathForItemClosestToPoint:[sender locationInView:self.collectionView]];
+    NSIndexPath *indexPath = [self indexPathForItemClosestToPoint:touchedAtPoint];
+    
+    NSLog(@"row %d; section %d",indexPath.row, indexPath.section);
 }
 
 - (void)handlePanGesture:(UIPanGestureRecognizer *)sender

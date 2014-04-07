@@ -19,4 +19,20 @@
     }
 }
 
+//- (id)initWithCoder:(NSCoder *)decoder {
+//    self = [super initWithCoder:decoder];
+//    if (self) {
+//        UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
+//        backgroundView.backgroundColor = [UIColor redColor];
+//        self.backgroundView = backgroundView;
+//        
+//        UIView* selectedBGView = [[UIView alloc] initWithFrame:self.bounds];
+//        selectedBGView.backgroundColor = [UIColor whiteColor];
+//        self.selectedBackgroundView = selectedBGView;
+//    }
+//    return self;
+//}
+
+
+
 @end

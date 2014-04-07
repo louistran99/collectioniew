@@ -22,6 +22,7 @@
 {
     [super viewDidLoad];
     
+    _collectionView.delegate = self;
     sections = [[NSMutableArray alloc] initWithCapacity:ITEM_COUNT];
     for(int s = 0; s < SECTION_COUNT; s++) {
         NSMutableArray *data = [[NSMutableArray alloc] initWithCapacity:ITEM_COUNT];
@@ -32,6 +33,44 @@
     }
 }
 
+
+#pragma mark UICollectionViewDelegate delegate call back
+//-(void) collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    Cell *cell = (Cell*)[_collectionView cellForItemAtIndexPath:indexPath];
+//    cell.backgroundView = nil;
+//    NSLog(@"deselected row: %d; section: %d",indexPath.row,indexPath.section);
+//}
+//
+//-(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+//
+//    Cell *cell = (Cell*)[_collectionView cellForItemAtIndexPath:indexPath];
+//    UIView *background = [[UIView alloc] initWithFrame:cell.bounds];
+//    background.backgroundColor = [UIColor redColor];
+//    cell.backgroundView = background;
+//    NSLog(@"Selected row: %d; section: %d",indexPath.row,indexPath.section);
+//}
+
+-(BOOL) collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+-(BOOL) collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    if ([NSStringFromSelector(action) isEqualToString:@"cut:"]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    if ([NSStringFromSelector(action) isEqualToString:@"cut:"]) {
+        NSLog(@"delete photo here...");
+    }
+
+}
+
+#pragma mark UICollectionViewDataSource delegate callback
+// and object that adpts UICOllectionViewDataSource protocol vends data to the collection view as needed
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return sections.count;
@@ -42,6 +81,7 @@
     return [[sections objectAtIndex:section] count];
 }
 
+// creates and returns a configured cell for a given index
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     Cell *cell = (Cell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
@@ -52,6 +92,7 @@
     return cell;
 }
 
+#pragma mark UICollectionViewDataSource_Draggable delegate callback
 - (BOOL)collectionView:(LSCollectionViewHelper *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;

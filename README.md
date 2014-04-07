@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 DraggableCollectionView
 =====================================
 
@@ -22,3 +23,7 @@ This extension can work with most custom layouts - just implement the `UICollect
 ## License
 
 DraggableCollectionView is available under the [MIT license](LICENSE).
+=======
+collectioniew
+=============
+>>>>>>> origin/master
